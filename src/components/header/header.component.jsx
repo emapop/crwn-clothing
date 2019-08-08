@@ -3,10 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 //lets us modify our component to have acces to things related to redux
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user-selector';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
@@ -41,9 +44,9 @@ const Header = ({ currentUser, hidden }) => (
 
 //the function that let us access the state, the state being our root reducer
 // destructure nested values
-const mapStateToProps = ({user: { currentUser }, cart: { hidden } }) => ({
-currentUser,
-hidden
+const mapStateToProps = createStructuredSelector({
+currentUser: selectCurrentUser,
+hidden: selectCartHidden
 });
 
 
